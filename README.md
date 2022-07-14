@@ -21,7 +21,7 @@ This will spawn three docker containers. It may take a while to initialize:
     shop-api: node:16-slim
     shop-client: node:lts-alpine3.15
 
-The app can be access in `http://localhost:8080`
+The app is accessible on `http://localhost:8080`
 
 The api is on port 3000:
     
