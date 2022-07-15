@@ -71,18 +71,27 @@ function Product() {
             let item: ICartProduct = products?.[`${product.id}:${size.id}`];
             if (item) {
                 item.quantity++;
-                await axios.patch(`${baseUrl}/${item.id}`, { quantity: item.quantity }).then(apiResponseCallback)
+                await axios.patch(`${baseUrl}/${item.id}`, { quantity: item.quantity })
+                    .then(apiResponseCallback)
+                    .catch(error => {
+                        notify(NotificationType.ERROR, error.message);
+                    });
             } else {
                 await axios.post(baseUrl, {
-                    productId: product.id,
-                    title: product.title,
-                    description: product.description,
-                    price: product.price,
-                    imageUrl: product.imageURL,
-                    sizeId: size.id,
-                    size: size.label,
-                    quantity: 1,
-                }).then(apiResponseCallback)
+                        productId: product.id,
+                        title: product.title,
+                        description: product.description,
+                        price: product.price,
+                        imageUrl: product.imageURL,
+                        sizeId: size.id,
+                        size: size.label,
+                        quantity: 1,
+                    })
+                    .then(apiResponseCallback)
+                    .catch(error => {
+                        notify(NotificationType.ERROR, error.message);
+                    });
+                
             }
         } else {
             notify(NotificationType.ERROR);

@@ -26,7 +26,7 @@ function Header() {
           return {
             key,
             label: (
-              <Row className='cart-item-row' 
+              <Row key={key} className='cart-item-row' 
                 gutter={{
                   xs: 8,
                   sm: 16,
@@ -78,7 +78,7 @@ function Header() {
       <Row justify='center'>
         <Col span={20}>
           <PageHeader extra={[
-            <DropdownMenu />
+            <DropdownMenu key='cart'/>
           ]}/> 
         </Col>
       </Row>
