@@ -4,19 +4,19 @@ import axios from 'axios';
 import './App.css';
 import Header from './Components/layouts/Header/Header';
 import Product from './Components/Product/Product';
-import { ICart, ICartProduct } from './types/cart';
+import { ICart, ICartProduct, ICartProducts } from './types/cart';
 
 export const CartContext = createContext<ICart>({ products: {}, setProducts: () => {}, loadCart: true, setLoadCart: () => {} });
 
 function App() {
-  const [products, setProducts] = useState<{ [key: string]: ICartProduct }>({});
+  const [products, setProducts] = useState<ICartProducts>({});
   const [loadCart, setLoadCart] = useState<boolean>(true);
 
   useEffect(() => {
     if (loadCart) {
       axios.get('http://localhost:3000/cart-items')
         .then(async (response) => {
-            const items: { [key: string]: ICartProduct } = {};
+            const items: ICartProducts = {};
             await response.data.forEach((i: ICartProduct) => {
               items[`${i.productId}:${i.sizeId}`] = { ...i };
             });

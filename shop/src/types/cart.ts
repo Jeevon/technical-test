@@ -10,8 +10,12 @@ export interface ICartProduct {
     quantity: number;
 }
 
+export interface ICartProducts {
+    [key: string]: ICartProduct
+}
+
 export interface ICart {
-    products: { [key: string]: ICartProduct };
+    products: ICartProducts;
     setProducts: Function;
     setLoadCart: Function;
     loadCart: boolean;

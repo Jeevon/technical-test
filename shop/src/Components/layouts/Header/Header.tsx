@@ -68,7 +68,7 @@ function Header() {
       placement="bottomRight"
       disabled={!cartItems}>
         <span>
-          <Button className='cart-dropdown' type="text">My Cart ({ cartItems })</Button>
+          <Button className='cart-dropdown' type="text" disabled={!cartItems}>My Cart ({ cartItems })</Button>
         </span>
     </Dropdown>
   );

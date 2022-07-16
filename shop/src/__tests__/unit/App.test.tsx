@@ -1,13 +1,38 @@
-import { render } from '@testing-library/react';
+import react from 'react';
+import {
+    render,
+    screen
+} from '@testing-library/react';
+import axios from 'axios';
 import App from '../../App';
-import Header from '../../Components/layouts/Header/Header';
-import Product from '../../Components/Product/Product';
+import mockedMatchMedia from '../utils/matchMedia';
 
-it('should render app successfully', () => {
-  const { baseElement: app } = render(<App />);
-  const { baseElement: header } = render(<Header />);
-  const { baseElement: product } = render(<Product />);
 
-  expect(app).toContainElement(header);
-  expect(app).toContainElement(product);
+const mockServices = () => {
+    jest.spyOn(react, 'useState').mockImplementation(() => {
+        const state = false;
+        return [
+            state,
+            jest.fn(),
+        ]
+    });
+
+    jest.spyOn(axios, 'get')
+        .mockImplementation(() => {
+            return Promise.resolve({ data: [] });
+        })
+}
+
+describe('App', () => {
+
+    beforeEach(() => {
+        mockedMatchMedia();
+        mockServices();
+    });
+
+    it('should render app successfully', () => {
+        render( < App / > );
+        const addToCartBtn = screen.getByText(/My cart/i)
+        expect(addToCartBtn).toBeInTheDocument();
+    });
 });
